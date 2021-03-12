@@ -1,10 +1,13 @@
 {
-  "name": "private-github-package",
+  "name": "create-github-package",
   "version": "1.0.0",
-  "description": "",
+  "description": "boiler plate for a npm package hosted in github using typescript and other tools for better CI/CD",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "create-github-package": "./index.js"
   },
   "repository": {
     "type": "git",
