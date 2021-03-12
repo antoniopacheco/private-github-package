@@ -4,7 +4,8 @@
   "description": "boiler plate for a npm package hosted in github using typescript and other tools for better CI/CD",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "standard-version"
   },
   "bin": {
     "create-github-package": "./index.js"
