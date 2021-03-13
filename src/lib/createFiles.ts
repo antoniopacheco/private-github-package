@@ -60,7 +60,7 @@ const createNPMPublish = (scope: string) => {
               - run: npm ci
               - run: npm publish
                 env:
-                    NODE_AUTH_TOKEN: \${{secrets.GITHUB_TOKEN}}
+                    NODE_AUTH_TOKEN: \${{secrets.GH_PACKAGE_TOKEN}}
   `;
   fs.writeFileSync(".github/workflows/publishPackage.yml", file);
 };

@@ -18,7 +18,7 @@ Utils included and configured:
 
 Start by creating a new repository
 and add a repository secret (under the repository settings)
-with the name of GITHUB_TOKEN
+with the name of GH_PACKAGE_TOKEN
 the token that you put there needs to have access to read/write packages.
 (if you don't have a token yet, you can create one on [https://github.com/settings/tokens](https://github.com/settings/tokens) )
 
@@ -73,3 +73,18 @@ or <br/>
 
 After this create a PR to master. this will again trigger unit testing
 once is ready, you can merge into master and this will create a new version of your package.
+
+## Using your package in an external project
+
+the new project needs to have a .npmrc file in the root folder
+with:
+
+```
+@<<your-user-name>>:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=<<READ_ONLY_TOKEN>>
+registry=https://registry.npmjs.com
+```
+
+replace \<\<your-user-name>> with your user name or your organization <br/>
+and \<\<READ_ONLY_TOKEN>> with a new token with read-only for packages <br />
+(if you don't want to store this in the repo, you can use environment variables)
