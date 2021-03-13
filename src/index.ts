@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
-const chalk = require("chalk");
-const clear = require("clear");
-const figlet = require("figlet");
-const files = require("./lib/files");
-const inquirer = require("./lib/inquirer");
-const fs = require("fs-extra");
-const path = require("path");
-const spawn = require("cross-spawn");
-const { createFiles } = require("./lib/createFiles");
-const allDevDependencies = [
+import chalk from "chalk";
+import clear from "clear";
+import figlet from "figlet";
+import * as files from "./lib/files";
+import { askProjectConfig, InquirerValues } from "./lib/inquirer";
+import fs from "fs-extra";
+import spawn from "cross-spawn";
+import { createFiles } from "./lib/createFiles";
+const allDevDependencies: string[] = [
   "@types/jest",
   "@typescript-eslint/eslint-plugin",
   "@typescript-eslint/parser",
@@ -27,8 +26,9 @@ const allDevDependencies = [
 ];
 
 clear();
+
 console.log(
-  chalk.yellow(figlet.textSync("PGHP", { horizontalLayout: "full" }))
+  chalk.yellow(figlet.textSync("CGHP", { horizontalLayout: "full" }))
 );
 
 if (!files.directoryExist(".git")) {
@@ -40,7 +40,7 @@ if (files.directoryExist("package.json")) {
   process.exit();
 }
 
-const installDependencies = () => {
+const installDependencies: () => Promise<void> = () => {
   return new Promise((resolve, reject) => {
     const args = [
       "install",
@@ -54,7 +54,7 @@ const installDependencies = () => {
     child.on("close", (code) => {
       if (code !== 0) {
         reject({
-          command: `${command} ${args.join(" ")}`,
+          command: `npm ${args.join(" ")}`,
         });
         return;
       }
@@ -63,13 +63,12 @@ const installDependencies = () => {
   });
 };
 
-const createPackageJson = (packageInfo) => {
+const createPackageJson = (packageInfo: InquirerValues) => {
   const packageJson = {
     name: `@${packageInfo.userName}/${packageInfo.packageName}`,
     version: "1.0.0",
-    private: true,
-    types: "dist/index.d.ts",
-    main: "dist/index.js",
+    types: "dist/src/index.d.ts",
+    main: "dist/src/index.js",
     files: ["dist"],
     scripts: {
       build: "tsc",
@@ -80,15 +79,15 @@ const createPackageJson = (packageInfo) => {
     },
     repository: {
       type: "git",
-      url: `git+https://github.com/$${packageInfo.userName}.${packageInfo.packageName}`,
+      url: `git+https://github.com/${packageInfo.userName}/${packageInfo.packageName}`,
     },
     keywords: [],
     author: `${packageInfo.userName}`,
     license: "ISC",
     bugs: {
-      url: `https://github.com/$${packageInfo.userName}.${packageInfo.packageName}/issues`,
+      url: `https://github.com/${packageInfo.userName}/${packageInfo.packageName}/issues`,
     },
-    homepage: `https://github.com/$${packageInfo.userName}.${packageInfo.packageName}`,
+    homepage: `https://github.com/${packageInfo.userName}/${packageInfo.packageName}`,
     publishConfig: {
       registry: `https://npm.pck.github.com/${packageInfo.userName}`,
     },
@@ -97,7 +96,7 @@ const createPackageJson = (packageInfo) => {
 };
 
 const run = async () => {
-  const packageInfo = await inquirer.askProjectConfig();
+  const packageInfo = await askProjectConfig();
   createPackageJson(packageInfo);
   createFiles(packageInfo.userName);
   console.log("Installing Packages. this might take a couple of minutes.");

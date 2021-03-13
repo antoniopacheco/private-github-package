@@ -1,6 +1,6 @@
-const fs = require("fs-extra");
+import fs from "fs-extra";
 
-const createFiles = (scope) => {
+export const createFiles = (scope: string) => {
   createEsLintFile();
   createHuskyFile();
   createLintStageFile();
@@ -8,14 +8,12 @@ const createFiles = (scope) => {
   createJestConfig();
   createTsConfig();
   createGitIgnore();
-
   //src folder
   if (!fs.existsSync("./src")) {
     fs.mkdirSync("./src");
   }
   createIndex();
   createTest();
-
   //github folder
   if (!fs.existsSync("./.github")) {
     fs.mkdirSync("./.github");
@@ -27,7 +25,7 @@ const createFiles = (scope) => {
   createNPMPublish(scope);
 };
 
-const createNPMPublish = (scope) => {
+const createNPMPublish = (scope: string) => {
   const file = `
   name: Publish NPM Package
   
@@ -62,7 +60,7 @@ const createNPMPublish = (scope) => {
               - run: npm ci
               - run: npm publish
                 env:
-                    NODE_AUTH_TOKEN: \${{secrets.GITHUB_TOKEN}}
+                    NODE_AUTH_TOKEN: \${{secrets.GH_PACKAGE_TOKEN}}
   `;
   fs.writeFileSync(".github/workflows/publishPackage.yml", file);
 };
@@ -198,8 +196,4 @@ const createTest = () => {
     expect(hello()).toEqual('hello');
 });\r\n`;
   fs.writeFileSync("src/index.test.ts", file);
-};
-
-module.exports = {
-  createFiles,
 };
