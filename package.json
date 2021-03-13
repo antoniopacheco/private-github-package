@@ -5,8 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "standard-version"
+    "release": "standard-version",
+    "build": "tsc",
+    "prepublish": "npm run build"
   },
+  "files": [
+    "dist"
+  ],
   "bin": {
     "create-github-package": "./index.js"
   },
@@ -33,6 +38,12 @@
     "minimist": "^1.2.5"
   },
   "devDependencies": {
-    "standard-version": "^9.1.1"
+    "@types/clear": "^0.1.1",
+    "@types/cross-spawn": "^6.0.2",
+    "@types/figlet": "^1.2.1",
+    "@types/fs-extra": "^9.0.8",
+    "@types/inquirer": "^7.3.1",
+    "standard-version": "^9.1.1",
+    "typescript": "^4.2.3"
   }
 }
