@@ -1,6 +1,6 @@
 {
   "name": "create-github-package",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "boiler plate for a npm package hosted in github using typescript and other tools for better CI/CD",
   "main": "index.js",
   "scripts": {
