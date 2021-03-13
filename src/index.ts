@@ -67,9 +67,8 @@ const createPackageJson = (packageInfo: InquirerValues) => {
   const packageJson = {
     name: `@${packageInfo.userName}/${packageInfo.packageName}`,
     version: "1.0.0",
-    private: true,
-    types: "dist/index.d.ts",
-    main: "dist/index.js",
+    types: "dist/src/index.d.ts",
+    main: "dist/src/index.js",
     files: ["dist"],
     scripts: {
       build: "tsc",
@@ -80,15 +79,15 @@ const createPackageJson = (packageInfo: InquirerValues) => {
     },
     repository: {
       type: "git",
-      url: `git+https://github.com/$${packageInfo.userName}.${packageInfo.packageName}`,
+      url: `git+https://github.com/${packageInfo.userName}/${packageInfo.packageName}`,
     },
     keywords: [],
     author: `${packageInfo.userName}`,
     license: "ISC",
     bugs: {
-      url: `https://github.com/$${packageInfo.userName}.${packageInfo.packageName}/issues`,
+      url: `https://github.com/${packageInfo.userName}/${packageInfo.packageName}/issues`,
     },
-    homepage: `https://github.com/$${packageInfo.userName}.${packageInfo.packageName}`,
+    homepage: `https://github.com/${packageInfo.userName}/${packageInfo.packageName}`,
     publishConfig: {
       registry: `https://npm.pck.github.com/${packageInfo.userName}`,
     },
