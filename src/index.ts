@@ -74,8 +74,10 @@ const createPackageJson = (packageInfo: InquirerValues) => {
       build: "tsc",
       test: "jest",
       lint: "eslint --fix",
+      prepare: "husky install",
       release: "standard-version",
       prepublish: "npm run lint && npm run test && npm run build",
+      "pre-commit": "lint-staged",
     },
     repository: {
       type: "git",
@@ -99,12 +101,22 @@ const run = async () => {
   const packageInfo = await askProjectConfig();
   createPackageJson(packageInfo);
   createFiles(packageInfo.userName);
-  console.log("Installing Packages. this might take a couple of minutes.");
+  console.log("Installing Packages. this might take a couple of minutes...");
   installDependencies().then(() => {
     try {
+      console.log("Installing hooks and formatting your files.");
+      spawn.sync("npx", ["husky", "install"]);
+      spawn.sync("npx", [
+        "husky",
+        "add",
+        ".husky/pre-commit",
+        "npm run pre-commit",
+      ]);
       spawn("npm", ["run", "lint"]);
     } catch (e) {
-      console.log("please run npm run lint");
+      console.log(
+        "please run npm run npx husky add ./husky/pre-commit 'lint-staged' && npm run lint"
+      );
     }
 
     console.log(chalk.green("Success"));
