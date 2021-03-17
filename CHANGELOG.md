@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/antoniopacheco/private-github-package/compare/v1.0.2...v1.0.3) (2021-03-17)
+
+
+### Bug Fixes
+
+* **husky:** husky should run as pre-commit hook ([dc07511](https://github.com/antoniopacheco/private-github-package/commit/dc075114dd45afb32289bcae340c892121ec3245)), closes [#4](https://github.com/antoniopacheco/private-github-package/issues/4)
+
+### [1.0.2](https://github.com/antoniopacheco/private-github-package/compare/v1.0.1...v1.0.2) (2021-03-13)
+
+
+### Bug Fixes
+
+* **fix main file and bin file location:** with typescript the files are in dist folder ([18f26e2](https://github.com/antoniopacheco/private-github-package/commit/18f26e2459d15f1ea0eed41d4bf5f22911fe7ac7))
+
 ### [1.0.1](https://github.com/antoniopacheco/private-github-package/compare/v1.0.0...v1.0.1) (2021-03-13)
 
 

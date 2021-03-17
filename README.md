@@ -23,8 +23,11 @@ the token that you put there needs to have access to read/write packages.
 (if you don't have a token yet, you can create one on [https://github.com/settings/tokens](https://github.com/settings/tokens) )
 
 once your repo is ready clone it into your local computer.
-then in the root of your empty project run: <br/>
-`npx create-github-package`
+then in the root of your empty project run:
+
+```sh
+npx create-github-package
+```
 
 this will start a wizard of 2 questions
 it'll ask you for your username or your organization name.<br/>
@@ -43,7 +46,19 @@ I recommend to use [Commitizen](https://github.com/commitizen/cz-cli), but this 
 
 ## Your first release
 
-for your first release you can work on the master branch, and when you are ready just push the changes, this should trigger an automated publishing of your package!
+for your first release you can work on the master branch, and when you are ready run
+
+```sh
+npm run release -- --first-release
+```
+
+then push your branch as follow:
+
+```sh
+git push --follow-tags origin master
+```
+
+this should trigger an automated publishing of your package!
 
 ## After your first release
 
@@ -60,16 +75,27 @@ you should not merge it to develop unless all test have passed.
 
 for the next steps you can keep working on develop or create a release branch and merge develop into release.
 
-Before you deploy you need to run <br/>
-`npm run release` <br/>
+Before you deploy you need to run
+
+```sh
+npm run release
+```
+
 This will bump your package.json package.lock.json and create a git tag
 and if you have conventional commits it will create a changelog for you.
 
 once that's done you need to push it with --follow-tags
 for example:
-`git push --follow-tags origin develop` <br/>
-or <br/>
-`git push --follow-tags origin release` <br/>
+
+```
+git push --follow-tags origin develop
+```
+
+or
+
+```sh
+git push --follow-tags origin release
+```
 
 After this create a PR to master. this will again trigger unit testing
 once is ready, you can merge into master and this will create a new version of your package.
@@ -80,9 +106,11 @@ the new project needs to have a .npmrc file in the root folder
 with:
 
 ```
+
 @<<your-user-name>>:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=<<READ_ONLY_TOKEN>>
+//npm.pkg.github.com/:\_authToken=<<READ_ONLY_TOKEN>>
 registry=https://registry.npmjs.com
+
 ```
 
 replace \<\<your-user-name>> with your user name or your organization <br/>

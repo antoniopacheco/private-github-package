@@ -2,7 +2,6 @@ import fs from "fs-extra";
 
 export const createFiles = (scope: string) => {
   createEsLintFile();
-  createHuskyFile();
   createLintStageFile();
   createPrettyFile();
   createJestConfig();
@@ -127,18 +126,9 @@ const createEsLintFile = () => {
   fs.writeFileSync(".eslintrc", JSON.stringify(eslintFile, null, 2));
 };
 
-const createHuskyFile = () => {
-  const huskyFile = {
-    hooks: {
-      "pre-commit": "lint-staged",
-    },
-  };
-  fs.writeFileSync(".huskyrc", JSON.stringify(huskyFile, null, 2));
-};
-
 const createLintStageFile = () => {
   const lintStageFile = {
-    "*.+(ts|tsx)": ["eslint --fix", "npm run test:staged"],
+    "*.+(ts|tsx)": ["eslint --fix", "jest --bail --findRelatedTests"],
     "*.+(json|css|yml)": ["prettier --write"],
   };
   fs.writeFileSync(".lintstagedrc", JSON.stringify(lintStageFile, null, 2));
